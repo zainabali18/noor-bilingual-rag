@@ -1,0 +1,24 @@
+[theme]
+base = "light"
+primaryColor = "#C08A2E"
+backgroundColor = "#F5EFE4"
+secondaryBackgroundColor = "#ECE3D2"
+textColor = "#1B2540"
+borderColor = "#E3D8C3"
+linkColor = "#24365C"
+baseRadius = "12px"
+font = "sans-serif"
+
+[server]
+# Streamlit's file watcher scans every loaded module on each run. With
+# transformers installed it trips over hundreds of optional vision modules
+# (the "No module named 'torchvision'" tracebacks). Off = quiet, faster reruns.
+# Trade-off: restart the app after editing code.
+fileWatcherType = "none"
+
+[client]
+toolbarMode = "minimal"
+showSidebarNavigation = false
+
+[browser]
+gatherUsageStats = false

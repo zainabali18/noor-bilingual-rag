@@ -1,0 +1,21 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install test dependencies
+        # Unit tests cover chunking, Arabic normalisation, RRF, metrics and the
+        # UI's text formatting. None need the ML models, so we install a light set.
+        run: pip install pytest rank-bm25 PyYAML numpy python-dotenv
+      - name: Run tests
+        run: pytest -q tests/test_chunker.py tests/test_lexical.py tests/test_fusion.py tests/test_formatting.py tests/test_model_loading.py

@@ -1,0 +1,61 @@
+# Labelled evaluation set for retrieval quality.
+#
+# Each item has a question, the language it is written in, and the doc_id(s)
+# that contain the answer. Because every topic exists in BOTH English and
+# Arabic, a correct system should be able to retrieve the relevant topic
+# regardless of the query language. That is what the cross-lingual metrics
+# measure: an English question should be able to surface the Arabic passage on
+# the same topic, and vice versa.
+
+questions:
+  # ---- English queries ----
+  - q: "How long is the UAE Golden Visa valid and who can apply for it?"
+    lang: en
+    relevant: [golden-visa]
+  - q: "What leave and end-of-service benefits do private-sector employees receive?"
+    lang: en
+    relevant: [employment]
+  - q: "What is the difference between a mainland company and a free-zone company?"
+    lang: en
+    relevant: [business-setup]
+  - q: "Is there any personal income tax on salaries in the UAE?"
+    lang: en
+    relevant: [cost-of-living]
+  - q: "How does someone get a residence visa, and what is the Emirates ID used for?"
+    lang: en
+    relevant: [residency]
+  - q: "What documents do I need to open a bank account as a new resident?"
+    lang: en
+    relevant: [banking]
+  - q: "Is health insurance mandatory for residents in the UAE?"
+    lang: en
+    relevant: [healthcare]
+  - q: "What school curricula are available for families in the UAE?"
+    lang: en
+    relevant: [education]
+
+  # ---- Arabic queries ----
+  - q: "ما مدة صلاحية التأشيرة الذهبية ومن يحق له التقديم عليها؟"
+    lang: ar
+    relevant: [golden-visa]
+  - q: "ما هي إجازات الموظفين ومكافأة نهاية الخدمة في القطاع الخاص؟"
+    lang: ar
+    relevant: [employment]
+  - q: "ما الفرق بين شركة البر الرئيسي وشركة المنطقة الحرة؟"
+    lang: ar
+    relevant: [business-setup]
+  - q: "هل توجد ضريبة دخل شخصية على الرواتب في الإمارات؟"
+    lang: ar
+    relevant: [cost-of-living]
+  - q: "كيف يحصل الشخص على تأشيرة إقامة وما هي الهوية الإماراتية؟"
+    lang: ar
+    relevant: [residency]
+  - q: "ما المستندات التي أحتاجها لفتح حساب بنكي كمقيم جديد؟"
+    lang: ar
+    relevant: [banking]
+  - q: "هل التأمين الصحي إلزامي للمقيمين في الإمارات؟"
+    lang: ar
+    relevant: [healthcare]
+  - q: "ما المناهج الدراسية المتاحة للعائلات في الإمارات؟"
+    lang: ar
+    relevant: [education]

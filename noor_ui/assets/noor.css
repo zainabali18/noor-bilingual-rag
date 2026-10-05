@@ -1,0 +1,639 @@
+@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600&family=Reem+Kufi:wght@500;600;700&display=swap');
+
+/* =========================================================================
+   Noor design system
+   Sand + midnight + gold light. Reem Kufi (Arabic & Latin, geometric Kufic)
+   carries the brand; Readex Pro (Arabic & Latin) carries everything else, so
+   mixed-language text always matches.
+   ========================================================================= */
+:root {
+  --sand: #F5EFE4;
+  --sand-deep: #ECE3D2;
+  --ivory: #FFFCF6;
+  --midnight: #13213D;
+  --midnight-2: #24365C;
+  --ink: #1B2540;
+  --muted: #5B6478;
+  --gold: #C08A2E;
+  --gold-bright: #E2AD4A;
+  --gold-ink: #8A6220;
+  --gold-soft: #F6E9CF;
+  --dune: #E3D8C3;
+  --teal: #2F6F6A;
+  --teal-soft: #E1EEEB;
+
+  --font-ui: "Readex Pro", "Segoe UI", "Noto Sans Arabic", "Helvetica Neue", Arial, sans-serif;
+  --font-brand: "Reem Kufi", "Readex Pro", "Segoe UI", sans-serif;
+
+  --shadow-sm: 0 1px 2px rgba(19, 33, 61, .05), 0 2px 10px -2px rgba(19, 33, 61, .06);
+  --shadow-md: 0 2px 4px rgba(19, 33, 61, .05), 0 18px 40px -14px rgba(19, 33, 61, .22);
+
+  --icon-info: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='8.25' fill='none' stroke='black' stroke-width='1.5'/%3E%3Cpath d='M10 9v5M10 6.2v.1' stroke='black' stroke-width='1.7' stroke-linecap='round'/%3E%3C/svg%3E");
+
+  --page-width: 1040px;
+  --read-width: 780px;
+}
+
+/* ---------- Streamlit shell overrides ---------- */
+html, body, .stApp, [data-testid="stAppViewContainer"] {
+  background: var(--sand);
+  color: var(--ink);
+  font-family: var(--font-ui);
+}
+.stApp p, .stApp li, .stApp label, .stApp button, .stApp textarea, .stApp input {
+  font-family: var(--font-ui);
+}
+header[data-testid="stHeader"],
+[data-testid="stToolbar"],
+[data-testid="stDecoration"],
+[data-testid="stSidebar"],
+[data-testid="stSidebarCollapsedControl"],
+[data-testid="stStatusWidget"],
+#MainMenu, footer { display: none !important; }
+
+[data-testid="stMainBlockContainer"], .block-container {
+  /* max-width: var(--page-width); */
+  padding: 0 1.25rem 7rem 1.25rem;
+}
+[data-testid="stMain"] { position: relative; z-index: 1; }
+::selection { background: var(--gold-soft); color: var(--midnight); }
+a { color: var(--midnight-2); }
+:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+/* ---------- Navigation ---------- */
+/* Sticky must sit on the wrapper: the keyed block is exactly as tall as its
+   wrapper, so it would have no room to stick on its own. */
+[data-testid="stLayoutWrapper"]:has(> .st-key-noor_nav) {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.st-key-noor_nav {
+  padding: .85rem 0 .75rem 0;
+  margin-bottom: .5rem;
+  background: color-mix(in srgb, var(--sand) 88%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--dune);
+}
+.noor-brand {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  text-decoration: none;
+  color: var(--midnight);
+}
+.noor-brand img { width: 30px; height: 30px; flex: none; display: block; }
+.noor-wordmark {
+  font-family: var(--font-brand);
+  font-weight: 600;
+  font-size: 1.45rem;
+  letter-spacing: .01em;
+  line-height: 1;
+  color: var(--midnight);
+}
+.noor-wordmark-ar {
+  font-family: var(--font-brand);
+  font-size: 1.05rem;
+  color: var(--gold-ink);
+  line-height: 1;
+  padding-inline-start: .55rem;
+  margin-inline-start: .1rem;
+  border-inline-start: 1px solid var(--dune);
+}
+.st-key-noor_nav button {
+  color: var(--midnight);
+  font-weight: 500;
+  font-size: .93rem;
+  border-radius: 10px;
+  padding: .35rem .8rem;
+  min-height: 0;
+}
+.st-key-noor_nav button p { font-size: .93rem; }
+.st-key-noor_nav button:hover { background: var(--sand-deep); color: var(--midnight); }
+.st-key-noor_nav [data-testid="stPopover"] button {
+  border: 1px solid var(--dune);
+  background: var(--ivory);
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  justify-content: center;
+  border-radius: 12px;
+}
+.st-key-noor_nav [data-testid="stPopover"] button:hover { border-color: var(--gold); background: var(--ivory); }
+.st-key-noor_nav [data-testid="stPopover"] button [data-testid="stIconMaterial"] { color: var(--midnight); }
+/* hide the chevron Streamlit adds to popovers */
+.st-key-nav_prefs [data-testid="stPopoverButton"] div[aria-hidden="true"] { display: none; }
+
+/* icon-only button: keep the "Preferences" label for screen readers only */
+.st-key-nav_prefs [data-testid="stPopoverButton"] [data-testid="stMarkdownContainer"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+[data-testid="stPopoverBody"] {
+  background: var(--ivory);
+  border: 1px solid var(--dune);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  padding: 1.1rem 1.2rem;
+  width: 340px;
+  max-width: calc(100vw - 2rem);
+}
+.noor-pop-title { font-weight: 600; color: var(--midnight); font-size: 1rem; margin: 0 0 .15rem 0; }
+.noor-pop-sub { color: var(--muted); font-size: .84rem; line-height: 1.5; margin: 0 0 .6rem 0; }
+
+/* sliders & toggles pick up the theme via .streamlit/config.toml */
+
+/* ---------- Hero (home) ---------- */
+.noor-hero {
+  position: relative;
+  text-align: center;
+  padding: 4.2rem 0 1.6rem 0;
+}
+.noor-hero-mark img { width: 76px; height: 76px; display: block; margin: 0 auto; }
+.noor-hero-mark {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 1.5rem auto;
+  filter: drop-shadow(0 10px 26px rgba(192, 138, 46, .45));
+  animation: noor-dawn 1.6s ease-out both;
+}
+.noor-hero h1 {
+  font-family: var(--font-brand);
+  font-weight: 600;
+  font-size: clamp(2.2rem, 4.6vw, 3.55rem);
+  line-height: 1.08;
+  letter-spacing: -.01em;
+  color: var(--midnight);
+  margin: 0;
+  padding: 0;
+}
+.noor-hero .noor-hero-ar {
+  font-family: var(--font-brand);
+  font-weight: 500;
+  font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+  color: var(--midnight-2);
+  opacity: .78;
+  margin: .55rem 0 0 0;
+  direction: rtl;
+}
+.noor-hero .noor-hero-intro {
+  max-width: 34rem;
+  margin: 1.15rem auto 0 auto;
+  color: var(--muted);
+  font-size: 1.06rem;
+  line-height: 1.65;
+}
+
+@keyframes noor-dawn {
+  from { opacity: 0; transform: translateY(6px); filter: drop-shadow(0 0 0 rgba(192, 138, 46, 0)); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------- Ask box (chat input), used on home and pinned in threads ---------- */
+[data-testid="stChatInput"] {
+  background: var(--ivory);
+  border: 1px solid var(--dune);
+  border-radius: 22px;
+  box-shadow: var(--shadow-md);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+[data-testid="stChatInput"] > div { background: transparent; border: none; box-shadow: none; }
+[data-testid="stChatInput"]:focus-within {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(192, 138, 46, .14), var(--shadow-md);
+}
+[data-testid="stChatInput"] textarea {
+  font-family: var(--font-ui);
+  font-size: 1.06rem;
+  color: var(--ink);
+  line-height: 1.6;
+  unicode-bidi: plaintext;      /* Arabic input flows right-to-left automatically */
+  text-align: start;
+  caret-color: var(--gold);
+}
+[data-testid="stChatInput"] textarea::placeholder { color: #8C93A3; opacity: 1; }
+/* the whole box shows focus (gold ring above), so the field itself doesn't */
+[data-testid="stChatInput"] textarea:focus,
+[data-testid="stChatInput"] textarea:focus-visible { outline: none; box-shadow: none; }
+
+/* !important: Streamlit sets the send button's colours inline via emotion */
+[data-testid="stChatInput"] button[data-testid="stChatInputSubmitButton"] {
+  background: var(--midnight) !important;
+  color: var(--ivory) !important;
+  border-radius: 14px;
+  width: 40px;
+  height: 40px;
+  transition: background .15s ease;
+}
+[data-testid="stChatInput"] button[data-testid="stChatInputSubmitButton"]:hover:not(:disabled) { background: var(--midnight-2) !important; }
+[data-testid="stChatInput"] button[data-testid="stChatInputSubmitButton"]:disabled { background: var(--sand-deep) !important; color: #A2A8B5 !important; }
+[data-testid="stChatInput"] button[data-testid="stChatInputSubmitButton"]:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+[data-testid="stChatInputSubmitButton"] svg { fill: currentColor; color: currentColor; }
+
+.st-key-noor_home_ask {
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+}
+.st-key-noor_home_ask [data-testid="stChatInput"] { padding: .55rem .6rem .55rem 1rem; }
+.st-key-noor_home_ask [data-testid="stChatInput"] textarea { font-size: 1.12rem; }
+
+.noor-ask-hint {
+  text-align: center;
+  color: var(--muted);
+  font-size: .84rem;
+  margin: .2rem 0 0 0;
+}
+.noor-ask-hint .ar { font-family: var(--font-ui); }
+
+/* pinned input at the bottom of a conversation */
+[data-testid="stBottom"] > div { background: linear-gradient(to top, var(--sand) 72%, rgba(245, 239, 228, 0)); }
+[data-testid="stBottomBlockContainer"] {
+  max-width: calc(var(--read-width) + 2.5rem);
+  padding: .9rem 1.25rem 1.4rem 1.25rem;
+}
+
+/* ---------- Suggestions ---------- */
+.noor-section-label {
+  color: var(--muted);
+  font-size: .88rem;
+  text-align: center;
+  margin: 2.6rem 0 .9rem 0;
+}
+.st-key-noor_suggestions { max-width: 860px; margin: 0 auto; width: 100%; }
+.st-key-noor_suggestions button {
+  width: 100%;
+  min-height: 74px;
+  background: var(--ivory);
+  border: 1px solid var(--dune);
+  border-radius: 16px;
+  padding: .85rem 1.05rem;
+  box-shadow: var(--shadow-sm);
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: start;
+  transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.st-key-noor_suggestions button > div { width: 100%; justify-content: flex-start; }
+.st-key-noor_suggestions button div,
+.st-key-noor_suggestions button span,
+.st-key-noor_suggestions button p { white-space: normal; overflow: visible; text-overflow: clip; }
+.st-key-noor_suggestions button p {
+  color: var(--midnight);
+  font-size: .96rem;
+  line-height: 1.45;
+  text-align: start;
+  font-weight: 400;
+}
+.st-key-noor_suggestions button:hover {
+  border-color: var(--gold);
+  background: var(--ivory);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+.st-key-noor_suggestions button:active { transform: none; }
+.st-key-noor_suggestions [class*="st-key-sugg_ar"] button { direction: rtl; }
+.st-key-noor_suggestions [class*="st-key-sugg_ar"] button p {
+  font-size: 1.04rem;
+  text-align: right;
+}
+
+/* ---------- Flow + coverage (home) ---------- */
+.noor-flow {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  padding: 0;
+  margin: 3.4rem auto 0 auto;
+  max-width: 860px;
+  counter-reset: flow;
+}
+.noor-flow li {
+  flex: 1;
+  position: relative;
+  text-align: center;
+  color: var(--ink);
+  font-size: .9rem;
+  line-height: 1.4;
+  padding: 1.35rem .6rem 0 .6rem;
+  margin: 0;
+}
+.noor-flow li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 4px var(--gold-soft);
+}
+.noor-flow li::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: calc(50% + 12px);
+  right: calc(-50% + 12px);
+  height: 1px;
+  background: var(--dune);
+}
+.noor-flow li:last-child::after { display: none; }
+
+.noor-coverage {
+  max-width: 40rem;
+  margin: 2.4rem auto 0 auto;
+  text-align: center;
+  color: var(--muted);
+  font-size: .92rem;
+  line-height: 1.65;
+}
+.noor-footer {
+  margin: 3.4rem auto 0 auto;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--dune);
+  max-width: 860px;
+  text-align: center;
+  color: #7A8193;
+  font-size: .8rem;
+}
+
+/* ---------- Conversation ---------- */
+[class*="st-key-noor_turn_"] {
+  max-width: var(--read-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.2rem 0 1.6rem 0;
+}
+[class*="st-key-noor_turn_"]:not(.st-key-noor_turn_0) { border-top: 1px solid var(--dune); }
+.noor-question {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: 1.62rem;
+  line-height: 1.35;
+  color: var(--midnight);
+  margin: 0 0 .9rem 0;
+  padding: 0;
+  unicode-bidi: plaintext;
+  scroll-margin-top: 96px;
+}
+.noor-question[dir="rtl"] { font-size: 1.75rem; line-height: 1.6; }
+
+.noor-byline {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin: 0 0 .75rem 0;
+  color: var(--midnight);
+}
+.noor-byline img { width: 22px; height: 22px; display: block; }
+.noor-byline .name { font-family: var(--font-brand); font-weight: 600; font-size: 1.05rem; }
+.noor-byline .meta { color: var(--muted); font-size: .8rem; margin-inline-start: auto; }
+
+.noor-answer {
+  font-size: 1.06rem;
+  line-height: 1.78;
+  color: var(--ink);
+}
+.noor-answer p { margin: 0 0 .9rem 0; }
+/* each paragraph takes the direction of its own text, so an Arabic quote
+   inside an English answer (or vice versa) still reads naturally */
+.noor-answer p, .noor-answer li, .noor-answer h4 { unicode-bidi: plaintext; text-align: start; }
+.noor-answer p:last-child { margin-bottom: 0; }
+.noor-answer ul, .noor-answer ol { margin: 0 0 .9rem 0; padding-inline-start: 1.35rem; }
+.noor-answer li { margin: .25rem 0; }
+.noor-answer li::marker { color: var(--gold); }
+.noor-answer h4 { font-size: 1.08rem; font-weight: 600; color: var(--midnight); margin: 1.1rem 0 .4rem 0; }
+.noor-answer strong { font-weight: 600; color: var(--midnight); }
+.noor-answer code { background: var(--sand-deep); border-radius: 5px; padding: .05rem .3rem; font-size: .9em; }
+.noor-answer[dir="rtl"] { font-size: 1.14rem; line-height: 2; text-align: right; }
+
+.noor-cite {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.35em;
+  height: 1.35em;
+  padding: 0 .3em;
+  margin: 0 .12em;
+  border-radius: 6px;
+  background: var(--gold-soft);
+  color: var(--gold-ink) !important;
+  font-size: .7em;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none !important;
+  vertical-align: .32em;
+  transition: background .15s ease, color .15s ease;
+}
+a.noor-cite:hover { background: var(--gold); color: var(--ivory) !important; }
+.noor-cite.is-orphan { background: var(--sand-deep); color: var(--muted) !important; }
+
+.noor-notice {
+  display: flex;
+  gap: .55rem;
+  align-items: flex-start;
+  margin: 1rem 0 0 0;
+  padding: .7rem .9rem;
+  background: var(--teal-soft);
+  color: #234F4B;
+  border-radius: 12px;
+  font-size: .86rem;
+  line-height: 1.5;
+}
+.noor-notice::before, .noor-disclaimer::before {
+  content: "";
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: .18rem;
+  background: currentColor;
+  -webkit-mask: var(--icon-info) center / contain no-repeat;
+          mask: var(--icon-info) center / contain no-repeat;
+}
+
+/* sources */
+.noor-sources-head {
+  display: flex;
+  align-items: baseline;
+  gap: .5rem;
+  margin: 2rem 0 .7rem 0;
+  color: var(--midnight);
+  font-weight: 600;
+  font-size: .98rem;
+}
+.noor-sources-head span { color: var(--muted); font-weight: 400; font-size: .86rem; }
+.noor-sources { display: grid; gap: .6rem; }
+.noor-src {
+  background: var(--ivory);
+  border: 1px solid var(--dune);
+  border-radius: 14px;
+  scroll-margin-top: 90px;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.noor-src:target { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(192, 138, 46, .16); }
+.noor-src summary {
+  list-style: none;
+  cursor: pointer;
+  padding: .85rem 1rem .8rem 1rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  column-gap: .7rem;
+  row-gap: .35rem;
+  align-items: center;
+}
+.noor-src summary::-webkit-details-marker { display: none; }
+.noor-src .num {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 8px;
+  background: var(--midnight);
+  color: var(--ivory);
+  font-size: .78rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.noor-src .title { font-weight: 500; color: var(--midnight); font-size: .97rem; unicode-bidi: plaintext; }
+.noor-src .lang {
+  font-size: .76rem;
+  color: var(--midnight-2);
+  background: var(--sand);
+  border: 1px solid var(--dune);
+  border-radius: 999px;
+  padding: .1rem .55rem;
+  white-space: nowrap;
+}
+.noor-src .lang.is-ar { background: var(--teal-soft); border-color: #C9DFDB; color: #234F4B; }
+.noor-src .passage {
+  grid-column: 2 / 4;
+  color: var(--muted);
+  font-size: .9rem;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  unicode-bidi: plaintext;
+}
+.noor-src .toggle { grid-column: 2 / 4; color: var(--gold-ink); font-size: .8rem; font-weight: 500; }
+.noor-src .toggle::after { content: "Show full passage"; }
+.noor-src[open] .toggle::after { content: "Show less"; }
+.noor-src[open] .passage { -webkit-line-clamp: unset; display: block; color: var(--ink); }
+.noor-src[dir="rtl"] .passage { font-size: .98rem; line-height: 1.9; }
+.noor-src:hover { border-color: #D6C6A6; }
+
+.noor-disclaimer {
+  display: flex;
+  gap: .5rem;
+  margin: 1.1rem 0 0 0;
+  color: #737A8B;
+  font-size: .8rem;
+  line-height: 1.55;
+}
+
+
+/* retrieval details (technical) */
+[data-testid="stExpander"] details {
+  border: 1px solid var(--dune);
+  border-radius: 14px;
+  background: transparent;
+}
+[data-testid="stExpander"] summary { padding: .6rem 1rem; }
+[data-testid="stExpander"] summary p { font-size: .88rem; color: var(--muted); font-weight: 500; }
+[data-testid="stExpander"] summary:hover p { color: var(--midnight); }
+
+.noor-table-wrap { overflow-x: auto; }
+.noor-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .82rem;
+  font-variant-numeric: tabular-nums;
+}
+.noor-table th {
+  text-align: start;
+  font-weight: 500;
+  color: var(--muted);
+  padding: .45rem .5rem;
+  border-bottom: 1px solid var(--dune);
+  white-space: nowrap;
+}
+.noor-table td {
+  padding: .5rem .5rem;
+  border-bottom: 1px solid #EFE7D8;
+  color: var(--ink);
+  vertical-align: top;
+}
+.noor-table td.topic { unicode-bidi: plaintext; min-width: 9rem; }
+.noor-table tr:last-child td { border-bottom: none; }
+.noor-table .file { color: var(--muted); font-size: .76rem; }
+.noor-kv { display: grid; grid-template-columns: max-content 1fr; gap: .25rem 1rem; font-size: .82rem; margin: .9rem 0 .2rem 0; }
+.noor-kv dt { color: var(--muted); }
+.noor-kv dd { margin: 0; color: var(--ink); }
+.noor-detail-note { color: var(--muted); font-size: .78rem; line-height: 1.5; margin: .7rem 0 0 0; }
+
+/* thinking + errors */
+.noor-thinking {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  color: var(--muted);
+  font-size: .95rem;
+  padding: .4rem 0;
+}
+.noor-thinking img { width: 22px; height: 22px; animation: noor-pulse 1.4s ease-in-out infinite; }
+.noor-thinking .dots::after { content: "…"; }
+@keyframes noor-pulse {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(192, 138, 46, 0)); opacity: .75; }
+  50% { filter: drop-shadow(0 0 8px rgba(226, 173, 74, .8)); opacity: 1; }
+}
+.noor-card {
+  background: var(--ivory);
+  border: 1px solid var(--dune);
+  border-radius: 16px;
+  padding: 1.1rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+.noor-card h3 { font-size: 1.02rem; font-weight: 600; color: var(--midnight); margin: 0 0 .3rem 0; padding: 0; }
+.noor-card p { margin: 0; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+.noor-card.is-error { border-color: #E5C3B8; background: #FFF8F4; }
+.noor-card code { background: var(--sand-deep); padding: .05rem .35rem; border-radius: 5px; }
+.st-key-noor_home_notice { max-width: 720px; margin: 1.4rem auto 0 auto; width: 100%; }
+
+/* ---------- About dialog ---------- */
+/* the visible panel is the element wrapping role="dialog" */
+[data-testid="stDialog"] div:has(> [role="dialog"]) {
+  background: var(--ivory) !important;
+  border-radius: 20px;
+  border: 1px solid var(--dune);
+  box-shadow: var(--shadow-md);
+}
+div[role="dialog"] h2 { font-family: var(--font-brand); color: var(--midnight); font-weight: 600; }
+.noor-about p { color: var(--ink); font-size: .96rem; line-height: 1.7; margin: 0 0 .9rem 0; }
+.noor-about h4 { color: var(--midnight); font-size: 1rem; font-weight: 600; margin: 1.4rem 0 .5rem 0; padding: 0; }
+.noor-about ol { margin: 0; padding-inline-start: 1.25rem; color: var(--ink); font-size: .93rem; line-height: 1.7; }
+.noor-about ol li::marker { color: var(--gold-ink); font-weight: 600; }
+.noor-about .small { color: var(--muted); font-size: .84rem; }
+
+/* ---------- Responsive + motion ---------- */
+@media (max-width: 720px) {
+  .noor-hero { padding-top: 2.4rem; }
+  .noor-wordmark-ar { display: none; }
+  .noor-flow { flex-wrap: wrap; row-gap: 1.4rem; }
+  .noor-flow li { flex: 0 0 50%; }
+  .noor-flow li::after { display: none; }
+  .noor-question { font-size: 1.35rem; }
+  .noor-src .passage { grid-column: 1 / 4; }
+  .noor-src .toggle { grid-column: 1 / 4; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

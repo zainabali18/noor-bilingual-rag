@@ -1,0 +1,18 @@
+# Core RAG
+sentence-transformers>=2.6.0
+chromadb>=0.5.0
+rank-bm25>=0.2.2
+numpy>=1.26
+
+# Config / data
+python-dotenv>=1.0.0
+PyYAML>=6.0
+
+# UI (tested on 1.65; needs horizontal containers, popovers and st.html)
+streamlit>=1.65
+
+# Answer generation (used when LLM_PROVIDER=openai; Noor still runs without a key)
+openai>=1.30
+
+# Dev / tests
+pytest>=8.0
